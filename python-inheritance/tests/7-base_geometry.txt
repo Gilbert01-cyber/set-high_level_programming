@@ -1,35 +1,100 @@
+The ``7-base_geometry`` module
+================================
+
+Import
+------
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+
+Instantiation
+-------------
+>>> bg #doctest: +ELLIPSIS
+<7-base_geometry.BaseGeometry object at ...>
+
+area() is not implemented
+--------------------------
+>>> try:
+...     bg.area()
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[Exception] area() is not implemented
+
 integer_validator with no arguments
 ---------------------------------------
->>> bg.integer_validator()
-Traceback (most recent call last):
-TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
+>>> try:
+...     bg.integer_validator()
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] integer_validator() missing 2 required positional arguments: 'name' and 'value'
 
 integer_validator with missing value argument
 --------------------------------------------------
->>> bg.integer_validator("age")
-Traceback (most recent call last):
-TypeError: integer_validator() missing 1 required positional argument: 'value'
+>>> try:
+...     bg.integer_validator("age")
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] integer_validator() missing 1 required positional argument: 'value'
+
+integer_validator with a valid positive integer
+----------------------------------------------------
+>>> bg.integer_validator("age", 1)
+
+integer_validator with zero
+-------------------------------
+>>> try:
+...     bg.integer_validator("age", 0)
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[ValueError] age must be greater than 0
+
+integer_validator with a negative number
+--------------------------------------------
+>>> try:
+...     bg.integer_validator("age", -4)
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[ValueError] age must be greater than 0
+
+integer_validator with a string
+------------------------------------
+>>> try:
+...     bg.integer_validator("age", "4")
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] age must be an integer
 
 integer_validator with a tuple
 -----------------------------------
->>> bg.integer_validator("age", (4,))
-Traceback (most recent call last):
-TypeError: age must be an integer
+>>> try:
+...     bg.integer_validator("age", (4,))
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] age must be an integer
 
 integer_validator with a list
 ----------------------------------
->>> bg.integer_validator("age", [3])
-Traceback (most recent call last):
-TypeError: age must be an integer
+>>> try:
+...     bg.integer_validator("age", [3])
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] age must be an integer
 
-integer_validator with a dictionary
-----------------------------------------
->>> bg.integer_validator("age", {3: 4})
-Traceback (most recent call last):
-TypeError: age must be an integer
+integer_validator with a boolean
+------------------------------------
+>>> bg.integer_validator("age", True)
+
+integer_validator with a set
+----------------------------------
+>>> try:
+...     bg.integer_validator("age", {3, 4})
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] age must be an integer
 
 integer_validator with None
 --------------------------------
->>> bg.integer_validator("age", None)
-Traceback (most recent call last):
-TypeError: age must be an integer
+>>> try:
+...     bg.integer_validator("age", None)
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] age must be an integer
