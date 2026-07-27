@@ -1,0 +1,75 @@
+The ``1-my_list`` module
+=========================
+
+Import
+------
+>>> MyList = __import__('1-my_list').MyList
+
+Instantiation
+-------------
+>>> my_list = MyList()
+>>> my_list
+[]
+
+Inherits from list
+-------------------
+>>> issubclass(MyList, list)
+True
+
+__str__ / regular print
+------------------------
+>>> my_list = MyList()
+>>> my_list.append(1)
+>>> my_list.append(2)
+>>> print(my_list)
+[1, 2]
+
+print_sorted with already sorted list
+--------------------------------------
+>>> my_list = MyList()
+>>> my_list.append(1)
+>>> my_list.append(2)
+>>> my_list.append(3)
+>>> my_list.print_sorted()
+[1, 2, 3]
+
+print_sorted with unsorted list
+---------------------------------
+>>> my_list = MyList()
+>>> my_list.append(1)
+>>> my_list.append(4)
+>>> my_list.append(2)
+>>> my_list.append(3)
+>>> my_list.append(5)
+>>> print(my_list)
+[1, 4, 2, 3, 5]
+>>> my_list.print_sorted()
+[1, 2, 3, 4, 5]
+>>> print(my_list)
+[1, 4, 2, 3, 5]
+
+print_sorted with negative numbers
+-------------------------------------
+>>> my_list = MyList()
+>>> my_list.append(3)
+>>> my_list.append(-1)
+>>> my_list.append(0)
+>>> my_list.append(-5)
+>>> my_list.print_sorted()
+[-5, -1, 0, 3]
+
+print_sorted with empty list
+-------------------------------
+>>> my_list = MyList()
+>>> my_list.print_sorted()
+[]
+
+print_sorted returns None (not a new list)
+---------------------------------------------
+>>> my_list = MyList()
+>>> my_list.append(2)
+>>> my_list.append(1)
+>>> result = my_list.print_sorted()
+[1, 2]
+>>> print(result)
+None
