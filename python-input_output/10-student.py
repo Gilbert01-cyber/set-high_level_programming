@@ -18,8 +18,13 @@ class Student:
         are in that list are included. Otherwise, all attributes
         are included.
         """
-        if isinstance(attrs, list) and all(isinstance(a, str)
-                                            for a in attrs):
-            return {k: v for k, v in self.__dict__.items()
-                    if k in attrs}
+        valid = isinstance(attrs, list)
+        if valid:
+            valid = all(isinstance(a, str) for a in attrs)
+        if valid:
+            new_dict = {}
+            for key, value in self.__dict__.items():
+                if key in attrs:
+                    new_dict[key] = value
+            return new_dict
         return self.__dict__
