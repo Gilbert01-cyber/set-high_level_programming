@@ -2,6 +2,7 @@
 """Unittest module for the Base class."""
 import unittest
 from models.base import Base
+from models.rectangle import Rectangle
 
 
 class TestBase(unittest.TestCase):
@@ -53,6 +54,27 @@ class TestBase(unittest.TestCase):
         """Test to_json_string returns a string."""
         result = Base.to_json_string([{"id": 12}])
         self.assertIsInstance(result, str)
+
+    def test_save_to_file_none(self):
+        """Test save_to_file with None saves an empty list."""
+        Rectangle.save_to_file(None)
+        with open("Rectangle.json", "r") as f:
+            self.assertEqual(f.read(), "[]")
+
+    def test_save_to_file_empty(self):
+        """Test save_to_file with an empty list."""
+        Rectangle.save_to_file([])
+        with open("Rectangle.json", "r") as f:
+            self.assertEqual(f.read(), "[]")
+
+    def test_save_to_file_list(self):
+        """Test save_to_file writes correct JSON for a list of objects."""
+        r1 = Rectangle(10, 7, 2, 8, 1)
+        Rectangle.save_to_file([r1])
+        with open("Rectangle.json", "r") as f:
+            content = f.read()
+        expected = Rectangle.to_json_string([r1.to_dictionary()])
+        self.assertEqual(content, expected)
 
 if __name__ == "__main__":
     unittest.main()
