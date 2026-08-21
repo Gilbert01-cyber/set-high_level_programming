@@ -68,5 +68,32 @@ class TestSquare(unittest.TestCase):
         self.assertEqual(str(e.exception), "width must be > 0")
 
 
+    def test_size_getter(self):
+        """Test the size getter."""
+        s1 = Square(5)
+        self.assertEqual(s1.size, 5)
+
+    def test_size_setter(self):
+        """Test the size setter updates width and height."""
+        s1 = Square(5)
+        s1.size = 10
+        self.assertEqual(s1.width, 10)
+        self.assertEqual(s1.height, 10)
+        self.assertEqual(str(s1), "[Square] ({}) 0/0 - 10".format(s1.id))
+
+    def test_size_setter_not_int(self):
+        """Test TypeError raised when size setter gets a non-int."""
+        s1 = Square(5)
+        with self.assertRaises(TypeError) as e:
+            s1.size = "9"
+        self.assertEqual(str(e.exception), "width must be an integer")
+
+    def test_size_setter_negative(self):
+        """Test ValueError raised when size setter gets negative."""
+        s1 = Square(5)
+        with self.assertRaises(ValueError) as e:
+            s1.size = -1
+        self.assertEqual(str(e.exception), "width must be > 0")
+
 if __name__ == "__main__":
     unittest.main()
