@@ -61,6 +61,74 @@ class TestRectangle(unittest.TestCase):
         r.y = 5
         self.assertEqual(r.y, 5)
 
+    def test_width_not_int(self):
+        """Test TypeError raised when width is not an int."""
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, "2")
+        self.assertEqual(str(e.exception), "height must be an integer")
+
+    def test_width_str(self):
+        """Test TypeError raised when width is a string."""
+        with self.assertRaises(TypeError) as e:
+            Rectangle("10", 2)
+        self.assertEqual(str(e.exception), "width must be an integer")
+
+    def test_width_negative(self):
+        """Test ValueError raised when width is negative."""
+        with self.assertRaises(ValueError) as e:
+            Rectangle(-10, 2)
+        self.assertEqual(str(e.exception), "width must be > 0")
+
+    def test_width_zero(self):
+        """Test ValueError raised when width is zero."""
+        with self.assertRaises(ValueError) as e:
+            Rectangle(0, 2)
+        self.assertEqual(str(e.exception), "width must be > 0")
+
+    def test_height_negative(self):
+        """Test ValueError raised when height is negative."""
+        with self.assertRaises(ValueError) as e:
+            Rectangle(10, -2)
+        self.assertEqual(str(e.exception), "height must be > 0")
+
+    def test_height_zero(self):
+        """Test ValueError raised when height is zero."""
+        with self.assertRaises(ValueError) as e:
+            Rectangle(10, 0)
+        self.assertEqual(str(e.exception), "height must be > 0")
+
+    def test_x_not_int(self):
+        """Test TypeError raised when x is not an int."""
+        with self.assertRaises(TypeError) as e:
+            r = Rectangle(10, 2)
+            r.x = {}
+        self.assertEqual(str(e.exception), "x must be an integer")
+
+    def test_x_negative(self):
+        """Test ValueError raised when x is negative."""
+        with self.assertRaises(ValueError) as e:
+            Rectangle(10, 2, -3)
+        self.assertEqual(str(e.exception), "x must be >= 0")
+
+    def test_y_not_int(self):
+        """Test TypeError raised when y is not an int."""
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 2, 0, "1")
+        self.assertEqual(str(e.exception), "y must be an integer")
+
+    def test_y_negative(self):
+        """Test ValueError raised when y is negative."""
+        with self.assertRaises(ValueError) as e:
+            Rectangle(10, 2, 3, -1)
+        self.assertEqual(str(e.exception), "y must be >= 0")
+
+    def test_width_setter_negative(self):
+        """Test ValueError raised when width setter gets negative."""
+        r = Rectangle(10, 2)
+        with self.assertRaises(ValueError) as e:
+            r.width = -10
+        self.assertEqual(str(e.exception), "width must be > 0")
+
 
 if __name__ == "__main__":
     unittest.main()
