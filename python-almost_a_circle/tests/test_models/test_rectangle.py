@@ -199,5 +199,23 @@ class TestRectangle(unittest.TestCase):
         self.assertEqual(r1.id, 89)
         self.assertEqual(r1.height, 10)
 
+    def test_to_dictionary(self):
+        """Test the to_dictionary method output."""
+        r1 = Rectangle(10, 2, 1, 9, 1)
+        expected = {"id": 1, "width": 10, "height": 2, "x": 1, "y": 9}
+        self.assertEqual(r1.to_dictionary(), expected)
+
+    def test_to_dictionary_type(self):
+        """Test to_dictionary returns a dict."""
+        r1 = Rectangle(10, 2)
+        self.assertIsInstance(r1.to_dictionary(), dict)
+
+    def test_to_dictionary_update_roundtrip(self):
+        """Test that update(**to_dictionary()) reproduces the object."""
+        r1 = Rectangle(10, 2, 1, 9, 1)
+        r2 = Rectangle(1, 1)
+        r2.update(**r1.to_dictionary())
+        self.assertEqual(str(r1), str(r2))
+
 if __name__ == "__main__":
     unittest.main()
