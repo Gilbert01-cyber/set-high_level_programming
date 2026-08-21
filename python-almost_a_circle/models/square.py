@@ -31,3 +31,17 @@ class Square(Rectangle):
     def size(self, value):
         self.width = value
         self.height = value
+
+    def update(self, *args, **kwargs):
+        """Update attributes via no-keyword or keyword arguments.
+
+        No-keyword order: id, size, x, y
+        Keyword args are skipped if args is non-empty.
+        """
+        if args:
+            attrs = ["id", "size", "x", "y"]
+            for attr, value in zip(attrs, args):
+                setattr(self, attr, value)
+        else:
+            for key, value in kwargs.items():
+                setattr(self, key, value)

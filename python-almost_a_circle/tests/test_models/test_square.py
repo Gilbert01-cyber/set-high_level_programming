@@ -95,5 +95,24 @@ class TestSquare(unittest.TestCase):
             s1.size = -1
         self.assertEqual(str(e.exception), "width must be > 0")
 
+    def test_update_args(self):
+        """Test update with no-keyword arguments."""
+        s1 = Square(5)
+        s1.update(1, 2, 3, 4)
+        self.assertEqual(str(s1), "[Square] (1) 3/4 - 2")
+
+    def test_update_kwargs(self):
+        """Test update with keyword arguments."""
+        s1 = Square(5)
+        s1.update(size=7, id=89, y=1)
+        self.assertEqual(str(s1), "[Square] (89) 0/1 - 7")
+
+    def test_update_args_skips_kwargs(self):
+        """Test that args takes priority over kwargs when both given."""
+        s1 = Square(5)
+        s1.update(10, size=99)
+        self.assertEqual(s1.id, 10)
+        self.assertEqual(s1.size, 5)
+
 if __name__ == "__main__":
     unittest.main()
