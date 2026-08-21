@@ -114,5 +114,23 @@ class TestSquare(unittest.TestCase):
         self.assertEqual(s1.id, 10)
         self.assertEqual(s1.size, 5)
 
+    def test_to_dictionary(self):
+        """Test the to_dictionary method output."""
+        s1 = Square(10, 2, 1, 1)
+        expected = {"id": 1, "size": 10, "x": 2, "y": 1}
+        self.assertEqual(s1.to_dictionary(), expected)
+
+    def test_to_dictionary_type(self):
+        """Test to_dictionary returns a dict."""
+        s1 = Square(10)
+        self.assertIsInstance(s1.to_dictionary(), dict)
+
+    def test_to_dictionary_update_roundtrip(self):
+        """Test that update(**to_dictionary()) reproduces the object."""
+        s1 = Square(10, 2, 1, 1)
+        s2 = Square(1, 1)
+        s2.update(**s1.to_dictionary())
+        self.assertEqual(str(s1), str(s2))
+
 if __name__ == "__main__":
     unittest.main()
