@@ -35,5 +35,24 @@ class TestBase(unittest.TestCase):
         self.assertEqual(b2.id, 1)
 
 
+    def test_to_json_string_none(self):
+        """Test to_json_string with None returns '[]'."""
+        self.assertEqual(Base.to_json_string(None), "[]")
+
+    def test_to_json_string_empty(self):
+        """Test to_json_string with empty list returns '[]'."""
+        self.assertEqual(Base.to_json_string([]), "[]")
+
+    def test_to_json_string_list(self):
+        """Test to_json_string with a list of dictionaries."""
+        list_dicts = [{"id": 12}]
+        result = Base.to_json_string(list_dicts)
+        self.assertEqual(result, '[{"id": 12}]')
+
+    def test_to_json_string_type(self):
+        """Test to_json_string returns a string."""
+        result = Base.to_json_string([{"id": 12}])
+        self.assertIsInstance(result, str)
+
 if __name__ == "__main__":
     unittest.main()
