@@ -89,11 +89,16 @@ class Rectangle(Base):
         return "[Rectangle] ({}) {}/{} - {}/{}".format(
             self.id, self.x, self.y, self.width, self.height)
 
-    def update(self, *args):
-        """Update attributes via no-keyword arguments.
+    def update(self, *args, **kwargs):
+        """Update attributes via no-keyword or keyword arguments.
 
-        Order: id, width, height, x, y
+        No-keyword order: id, width, height, x, y
+        Keyword args are skipped if args is non-empty.
         """
-        attrs = ["id", "width", "height", "x", "y"]
-        for attr, value in zip(attrs, args):
-            setattr(self, attr, value)
+        if args:
+            attrs = ["id", "width", "height", "x", "y"]
+            for attr, value in zip(attrs, args):
+                setattr(self, attr, value)
+        else:
+            for key, value in kwargs.items():
+                setattr(self, key, value)
