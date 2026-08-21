@@ -137,5 +137,16 @@ class TestRectangle(unittest.TestCase):
         r2 = Rectangle(8, 7, 0, 0, 12)
         self.assertEqual(r2.area(), 56)
 
+    def test_display(self):
+        """Test the display method output."""
+        import io
+        import sys
+        r1 = Rectangle(2, 3)
+        captured = io.StringIO()
+        sys.stdout = captured
+        r1.display()
+        sys.stdout = sys.__stdout__
+        self.assertEqual(captured.getvalue(), "##\n" * 3)
+
 if __name__ == "__main__":
     unittest.main()
