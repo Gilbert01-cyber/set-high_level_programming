@@ -138,7 +138,7 @@ class TestRectangle(unittest.TestCase):
         self.assertEqual(r2.area(), 56)
 
     def test_display(self):
-        """Test the display method output."""
+        """Test the display method output without offset."""
         import io
         import sys
         r1 = Rectangle(2, 3)
@@ -147,6 +147,18 @@ class TestRectangle(unittest.TestCase):
         r1.display()
         sys.stdout = sys.__stdout__
         self.assertEqual(captured.getvalue(), "##\n" * 3)
+
+    def test_display_with_offset(self):
+        """Test the display method output with x/y offset."""
+        import io
+        import sys
+        r1 = Rectangle(2, 3, 2, 2)
+        captured = io.StringIO()
+        sys.stdout = captured
+        r1.display()
+        sys.stdout = sys.__stdout__
+        expected = "\n\n" + "  ##\n" * 3
+        self.assertEqual(captured.getvalue(), expected)
 
     def test_str(self):
         """Test the __str__ method output."""
