@@ -167,5 +167,24 @@ class TestRectangle(unittest.TestCase):
         r2 = Rectangle(5, 5, 1, 0, 9)
         self.assertEqual(str(r2), "[Rectangle] (9) 1/0 - 5/5")
 
+    def test_update_no_args(self):
+        """Test update with no arguments changes nothing."""
+        r1 = Rectangle(10, 10, 10, 10)
+        r1.update()
+        self.assertEqual(str(r1), "[Rectangle] ({}) 10/10 - 10/10"
+                          .format(r1.id))
+
+    def test_update_one_arg(self):
+        """Test update with one argument updates id."""
+        r1 = Rectangle(10, 10, 10, 10)
+        r1.update(89)
+        self.assertEqual(r1.id, 89)
+
+    def test_update_all_args(self):
+        """Test update with all arguments in correct order."""
+        r1 = Rectangle(10, 10, 10, 10)
+        r1.update(89, 2, 3, 4, 5)
+        self.assertEqual(str(r1), "[Rectangle] (89) 4/5 - 2/3")
+
 if __name__ == "__main__":
     unittest.main()
